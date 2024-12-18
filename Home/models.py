@@ -17,7 +17,7 @@ class Category(BaseModel):
     category_name = models.CharField(max_length=100)
 
     def __str__(self):
-        return self.categotry_name
+        return self.category_name
 
 
 class Question(BaseModel):
