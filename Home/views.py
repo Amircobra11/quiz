@@ -15,7 +15,6 @@ def quiz(request):
     context = {"category": request.GET.get('category')}
     return render(request, 'quiz.html', context)
 
-
 def get_quiz(request):
     try:
         question_objs = Question.objects.all()
