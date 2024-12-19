@@ -5,7 +5,7 @@ import random
 
 
 def home(request):
-    context= {"categories": Category.objects.all()}
+    context = {"categories": Category.objects.all()}
     if request.GET.get('category'):
         return redirect(f"/quiz/?category={request.GET.get("category")}")
     return render(request, 'home.html', context)
@@ -16,15 +16,12 @@ def quiz(request):
     return render(request, 'quiz.html', context)
 
 
-    
-
-
-
 def get_quiz(request):
     try:
         question_objs = Question.objects.all()
         if request.GET.get('category'):
-            question_objs = question_objs.filter(category__category_name__icontains=request.GET.get('category'))
+            question_objs = question_objs.filter(
+                category__category_name__icontains=request.GET.get('category'))
 
         question_objs = list(question_objs)
         random.shuffle(question_objs)
@@ -37,13 +34,8 @@ def get_quiz(request):
                 "marks": question_obj.marks,
                 "answers": question_obj.ger_answer()
             })
-        payload = {"status" :True , "data" : data}
+        payload = {"status": True, "data": data}
         return JsonResponse(payload)
     except Exception as e:
         return HttpResponse(str(e))
-        print(e)
-
     return HttpResponse('someting went wrong')
-    
-
-    
